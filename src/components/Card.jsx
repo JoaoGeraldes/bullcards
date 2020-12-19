@@ -1,26 +1,15 @@
 import * as Deck from "../assets/deck/index";
+import NonFlippedCard from "../assets/deck/back/back.svg";
 
-const Card = ({ cardIndex, suitIndex }) => {
-  const CARDS = [
-    "Ace",
-    "Two",
-    "Three",
-    "Four",
-    "Five",
-    "Six",
-    "Seven",
-    "Eight",
-    "Nine",
-    "Ten",
-    "Jack",
-    "Queen",
-    "King",
-  ];
-  const SUITS = ["Clubs", "Diamonds", "Hearts", "Spades"];
-
+const Card = ({ card, isFlipped }) => {
   return (
     <>
-      <img src={Deck[CARDS[0] + SUITS[0]]} alt={Deck[CARDS[0] + SUITS[0]]} />
+      {console.log("Card: ", card)}
+      {isFlipped ? (
+        <img src={Deck[card]} alt={card} />
+      ) : (
+        <img src={NonFlippedCard} alt="Unflipped card" />
+      )}
     </>
   );
 };

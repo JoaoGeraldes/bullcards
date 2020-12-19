@@ -39,10 +39,10 @@ import EightDiamonds from "./front/8d.svg";
 import EightHearts from "./front/8h.svg";
 import EightSpades from "./front/8s.svg";
 /* Nine */
-import NineClubs from "./front/8c.svg";
-import NineDiamonds from "./front/8d.svg";
-import NineHearts from "./front/8h.svg";
-import NineSpades from "./front/8s.svg";
+import NineClubs from "./front/9c.svg";
+import NineDiamonds from "./front/9d.svg";
+import NineHearts from "./front/9h.svg";
+import NineSpades from "./front/9s.svg";
 /* Ten */
 import TenClubs from "./front/10c.svg";
 import TenDiamonds from "./front/10d.svg";

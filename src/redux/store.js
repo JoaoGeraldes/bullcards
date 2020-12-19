@@ -4,7 +4,7 @@ import { reducer } from "./reducer";
 const defaultState = {
   username: "",
   scoreboard: [],
-  currentDeck: [],
+  board: [],
 };
 
 export const store = createStore(
@@ -13,10 +13,11 @@ export const store = createStore(
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
-store.dispatch({
+/* store.dispatch({
   type: "SET_USERNAME",
   payload: "Player",
 });
+ */
 
 console.log(store.getState());
 // [ 'Use Redux', 'Read the docs' ]
