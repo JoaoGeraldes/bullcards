@@ -3,6 +3,7 @@ import { reducer } from "./reducer";
 
 const defaultState = {
   username: "",
+  timer: 0,
   scoreboard: [],
   board: [],
 };

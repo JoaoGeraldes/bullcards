@@ -13,7 +13,101 @@ code {
     monospace;
 }
 
-img {
-  width: 12vw;
-  height: auto;
+.board {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  flex-wrap: wrap;
+}
+
+.card-container {
+  width: 100px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid blue;
+}
+
+.card {
+  /* perspective: 1000px; */
+  width: 70px !important;
+  height: 100 !important;
+  cursor: pointer;
+}
+
+/* EFFECT */
+.flip-vertical-right {
+  -webkit-animation: flip-vertical-right 0.3s
+    cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
+  animation: flip-vertical-right 0.3s cubic-bezier(0.455, 0.03, 0.515, 0.955)
+    both;
+}
+.flip-vertical-left {
+  -webkit-animation: flip-vertical-left 0.3s
+    cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
+  animation: flip-vertical-left 0.3s cubic-bezier(0.455, 0.03, 0.515, 0.955)
+    both;
+}
+/**
+ * ----------------------------------------
+ * animation flip-vertical-right
+ * ----------------------------------------
+ */
+@-webkit-keyframes flip-vertical-right {
+  0% {
+    -webkit-transform: rotateY(0);
+    transform: rotateY(0);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+  }
+
+  100% {
+    -webkit-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+    -webkit-transform: scaleX(1);
+    transform: scaleX(1);
+  }
+}
+@keyframes flip-vertical-right {
+  0% {
+    -webkit-transform: rotateY(0);
+    transform: rotateY(0);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+  }
+
+  100% {
+    -webkit-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+    -webkit-transform: scaleX(1);
+    transform: scaleX(1);
+  }
+}
+/**
+ * ----------------------------------------
+ * animation flip-vertical-left
+ * ----------------------------------------
+ */
+@-webkit-keyframes flip-vertical-left {
+  0% {
+    -webkit-transform: rotateY(0);
+    transform: rotateY(0);
+  }
+  100% {
+    -webkit-transform: rotateY(-180deg);
+    transform: rotateY(-180deg);
+  }
+}
+@keyframes flip-vertical-left {
+  0% {
+    -webkit-transform: rotateY(0);
+    transform: rotateY(0);
+  }
+  100% {
+    -webkit-transform: rotateY(-180deg);
+    transform: rotateY(-180deg);
+  }
 }
