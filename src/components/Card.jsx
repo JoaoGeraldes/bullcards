@@ -21,12 +21,13 @@ const Card = ({ match, id, card, isFlipped, onClick: flipCard }) => {
     flipCardSound.play();
     flipCard({
       type: "SET_FLIP_CARD",
-      payload: { id, isFlipped },
+      payload: { id, isFlipped, decrementScore: true },
     });
   };
 
   return (
     <div className={`card-container`}>
+      {console.log("Card.jsx renderd!")}
       <img
         onClick={() => !hasMatch && clickHandler()}
         className={`card ${flipEffect}`}

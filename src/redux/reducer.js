@@ -5,13 +5,35 @@ export function reducer(state = [], action) {
     case "SET_USERNAME":
       return { ...state, username: action.payload };
     case "SET_TIMER":
-      const time = action.payload !== undefined ? action.payload : state.timer;
-
-      return { ...state, timer: time + 1 };
+      //const time = action.payload !== undefined ? action.payload : state.timer;
+      stateClone.timer = action.payload;
+      return stateClone;
     case "SET_BOARD":
       return { ...state, board: action.payload };
+    case "RESET":
+      /*       if (action.payload) {
+        return {
+          timer: 0,
+          score: 1000,
+          scoreboard: [...state.scoreboard, action.payload],
+          board: [],
+        };
+      } */
+      const scoreLogic = Math.round((state.score / state.timer) * 100);
+      return {
+        timer: 0,
+        score: 1000,
+        scoreboard:
+          state.timer === 0
+            ? [...state.scoreboard]
+            : [...state.scoreboard, scoreLogic],
+        board: [],
+      };
     case "SET_FLIP_CARD":
-      //const cardToFlip = state.board.filter((card) => card.key === action.payload.key)
+      // Remove points only when it was clicked by user
+      if (action.payload.decrementScore) {
+        stateClone.score = stateClone.score - 50;
+      }
 
       stateClone.board.forEach((card) => {
         if (card.id === action.payload.id) {
@@ -21,6 +43,7 @@ export function reducer(state = [], action) {
       return stateClone;
 
     case "SET_MATCH_CARD":
+      stateClone.score = stateClone.score + 200;
       stateClone.board.forEach((card) => {
         if (card.id === action.payload.id) {
           card.match = action.payload.match;

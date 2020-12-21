@@ -1,5 +1,5 @@
 import Card from "./Card";
-import { useEffect, useCallback } from "react";
+import { useEffect, useCallback, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   deckBuilder,
@@ -13,9 +13,12 @@ const Play = () => {
   /*     const flipCard = useCallback(() => dispatch({ type: "SET_BOARD" }), [
     dispatch,
   ]); */
-  const board = useSelector((state) => state.board);
 
-  // GAME SETTINGS
+  const BOARD = useSelector((state) => state.board);
+  const SCORE = useSelector((state) => state.score);
+  const SCOREBOARD = useSelector((state) => state.scoreboard);
+
+  /* GAME SETTINGS */
   const settings = {
     cardFlipDelay: 1000,
     cardPairQuantity: 4,
@@ -28,6 +31,9 @@ const Play = () => {
     tingSound.play();
 
     let cardCollection = [];
+
+    // Reset redux store
+    dispatch({ type: "RESET" });
 
     playingCards.forEach((oneCard, index) => {
       cardCollection.push(
@@ -47,32 +53,39 @@ const Play = () => {
         }
       );
     });
-    dispatch({ type: "SET_BOARD", payload: shuffleCards(cardCollection) });
-    dispatch({ type: "SET_TIMER", payload: -1 });
+    //dispatch({ type: "SET_BOARD", payload: shuffleCards(cardCollection) });
+    dispatch({ type: "SET_BOARD", payload: cardCollection });
   }, []);
 
-  const currentUnmatchedFlippedCards = board.filter(
+  const currentUnmatchedFlippedCards = BOARD.filter(
     (card) => card.isFlipped === true && card.match === null
   ).length;
 
-  const currentMatchedFlippedCards = board.filter((card) => card.match !== null)
+  const currentMatchedFlippedCards = BOARD.filter((card) => card.match !== null)
     .length;
 
   // When the game has ended
   const isGameFinished = () =>
     currentMatchedFlippedCards === settings.cardPairQuantity * 2;
   if (isGameFinished()) {
+    console.log(SCOREBOARD);
     const endSound = document.querySelector("#audio-endGame");
     setTimeout(() => endSound.play(), 600);
   }
 
+  /* Function to be passed to each card. 
+  If there are 2 flipped cards unmatched, 
+  a callback click handler will not be sent 
+  to each card, send null instead.
+  */
   const cardClickHandler = currentUnmatchedFlippedCards === 2 ? null : dispatch;
 
   // Flipped and Unmatched cards filter
-  const fluc = board.filter(
+  const fluc = BOARD.filter(
     (card) => card.isFlipped === true && card.match === null
   );
 
+  /* Logic that checks both flipped cards for a match */
   if (fluc.length === 2) {
     if (fluc[fluc.length - 1].card === fluc[fluc.length - 2].card) {
       // Found card match ✅
@@ -100,28 +113,41 @@ const Play = () => {
           type: "SET_FLIP_CARD",
           payload: {
             id: fluc[fluc.length - 1].id,
-            isFlipped: false,
+            /* isFlipped: false, */
           },
         });
         dispatch({
           type: "SET_FLIP_CARD",
           payload: {
             id: fluc[fluc.length - 2].id,
-            isFlipped: false,
+            /*  isFlipped: false, */
           },
         });
       }, settings.cardFlipDelay);
     }
   }
 
+  // Avoiding unnecessary rendering of cards - render only when the redux BOARD changes - memoization
+  const MemoizedBoard = useMemo(() => {
+    const ok = BOARD.map((card, index) => (
+      <Card index={index} onClick={cardClickHandler} {...card} />
+    ));
+    return ok;
+  }, [BOARD]);
+
   return (
     <>
-      <h2>{!isGameFinished() && <Timer />}</h2>
+      {console.log("Play.jsx rendered!")}
+      {<h2>{<Timer isGameFinished={isGameFinished()} />}</h2>}
       <div className="board">
-        {board.map((card, index) => (
+        {
+          /* BOARD.map((card, index) => (
           <Card index={index} onClick={cardClickHandler} {...card} />
-        ))}
+        )) */
+          MemoizedBoard
+        }
       </div>
+      <h1>{SCORE}</h1>
     </>
   );
 };
