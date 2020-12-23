@@ -11,22 +11,21 @@ export function reducer(state = [], action) {
     case "SET_BOARD":
       return { ...state, board: action.payload };
     case "RESET":
-      /*       if (action.payload) {
-        return {
-          timer: 0,
-          score: 1000,
-          scoreboard: [...state.scoreboard, action.payload],
-          board: [],
-        };
-      } */
+      console.log("ARRIVED");
       const scoreLogic = Math.round((state.score / state.timer) * 100);
       return {
+        username: state.username,
         timer: 0,
         score: 1000,
+        isMenuOpen: false,
+        isAudioMuted: state.isAudioMuted,
         scoreboard:
           state.timer === 0
             ? [...state.scoreboard]
-            : [...state.scoreboard, scoreLogic],
+            : [
+                ...state.scoreboard,
+                { username: state.username, score: scoreLogic },
+              ],
         board: [],
       };
     case "SET_FLIP_CARD":
@@ -41,7 +40,6 @@ export function reducer(state = [], action) {
         }
       });
       return stateClone;
-
     case "SET_MATCH_CARD":
       stateClone.score = stateClone.score + 200;
       stateClone.board.forEach((card) => {
@@ -50,6 +48,10 @@ export function reducer(state = [], action) {
         }
       });
       return stateClone;
+    case "TOGGLE_MENU":
+      return { ...state, isMenuOpen: !state.isMenuOpen };
+    case "TOGGLE_AUDIO":
+      return { ...state, isAudioMuted: !state.isAudioMuted };
     default:
       return state;
   }

@@ -5,7 +5,18 @@ const defaultState = {
   username: "",
   timer: 0,
   score: 1000,
-  scoreboard: [],
+  isMenuOpen: false,
+  isAudioMuted: true,
+  scoreboard: [
+    { username: "Perro", score: 3000 },
+    { username: "Perrodwdw", score: 239833 },
+    { username: "Perrodwdw", score: 239833 },
+    { username: "Perrodwdw", score: 239833 },
+    { username: "Perrodwdw", score: 239833 },
+    { username: "Perrodwdw", score: 239833 },
+    { username: "Perrodwdw", score: 239833 },
+    { username: "último", score: 239833 },
+  ],
   board: [],
 };
 
@@ -16,10 +27,9 @@ export const store = createStore(
 );
 
 /* store.dispatch({
-  type: "SET_USERNAME",
-  payload: "Player",
+  type: "type",
+  payload: "payload",
 });
  */
 
 console.log(store.getState());
-// [ 'Use Redux', 'Read the docs' ]

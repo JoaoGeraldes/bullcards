@@ -1,28 +1,38 @@
 import Card from "./Card";
 import { useEffect, useCallback, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  deckBuilder,
-  getRandomCardsFromDeck,
-  shuffleCards,
-} from "../helpers/deck";
+import { getRandomCardsFromDeck, shuffleCards } from "../helpers/deck";
 import Timer from "./Timer";
+import { Link, Redirect } from "react-router-dom";
+
+/* GAME SETTINGS */
+const settings = {
+  cardFlipDelay: 1000,
+  cardPairQuantity: 4,
+  shuffleDeck: false,
+};
 
 const Play = () => {
   const dispatch = useDispatch();
-  /*     const flipCard = useCallback(() => dispatch({ type: "SET_BOARD" }), [
-    dispatch,
-  ]); */
-
   const BOARD = useSelector((state) => state.board);
   const SCORE = useSelector((state) => state.score);
   const SCOREBOARD = useSelector((state) => state.scoreboard);
+  const TIMER = useSelector((state) => state.timer);
 
-  /* GAME SETTINGS */
-  const settings = {
-    cardFlipDelay: 1000,
-    cardPairQuantity: 4,
-  };
+  const currentMatchedFlippedCards = BOARD.filter((card) => card.match !== null)
+    .length;
+
+  const currentUnmatchedFlippedCards = BOARD.filter(
+    (card) => card.isFlipped === true && card.match === null
+  ).length;
+
+  // Flipped and Unmatched cards filter
+  const fluc = BOARD.filter(
+    (card) => card.isFlipped === true && card.match === null
+  );
+
+  const isGameFinished =
+    currentMatchedFlippedCards === settings.cardPairQuantity * 2;
 
   useEffect(() => {
     const randomKey = () => Date.now() + Math.round(Math.random() * 10000000);
@@ -35,6 +45,7 @@ const Play = () => {
     // Reset redux store
     dispatch({ type: "RESET" });
 
+    // Each card will be repeated in the array
     playingCards.forEach((oneCard, index) => {
       cardCollection.push(
         {
@@ -53,25 +64,13 @@ const Play = () => {
         }
       );
     });
-    //dispatch({ type: "SET_BOARD", payload: shuffleCards(cardCollection) });
-    dispatch({ type: "SET_BOARD", payload: cardCollection });
+    dispatch({
+      type: "SET_BOARD",
+      payload: settings.shuffleDeck
+        ? shuffleCards(cardCollection)
+        : cardCollection,
+    });
   }, []);
-
-  const currentUnmatchedFlippedCards = BOARD.filter(
-    (card) => card.isFlipped === true && card.match === null
-  ).length;
-
-  const currentMatchedFlippedCards = BOARD.filter((card) => card.match !== null)
-    .length;
-
-  // When the game has ended
-  const isGameFinished = () =>
-    currentMatchedFlippedCards === settings.cardPairQuantity * 2;
-  if (isGameFinished()) {
-    console.log(SCOREBOARD);
-    const endSound = document.querySelector("#audio-endGame");
-    setTimeout(() => endSound.play(), 600);
-  }
 
   /* Function to be passed to each card. 
   If there are 2 flipped cards unmatched, 
@@ -79,11 +78,6 @@ const Play = () => {
   to each card, send null instead.
   */
   const cardClickHandler = currentUnmatchedFlippedCards === 2 ? null : dispatch;
-
-  // Flipped and Unmatched cards filter
-  const fluc = BOARD.filter(
-    (card) => card.isFlipped === true && card.match === null
-  );
 
   /* Logic that checks both flipped cards for a match */
   if (fluc.length === 2) {
@@ -113,14 +107,12 @@ const Play = () => {
           type: "SET_FLIP_CARD",
           payload: {
             id: fluc[fluc.length - 1].id,
-            /* isFlipped: false, */
           },
         });
         dispatch({
           type: "SET_FLIP_CARD",
           payload: {
             id: fluc[fluc.length - 2].id,
-            /*  isFlipped: false, */
           },
         });
       }, settings.cardFlipDelay);
@@ -129,25 +121,31 @@ const Play = () => {
 
   // Avoiding unnecessary rendering of cards - render only when the redux BOARD changes - memoization
   const MemoizedBoard = useMemo(() => {
-    const ok = BOARD.map((card, index) => (
+    const boardMap = BOARD.map((card, index) => (
       <Card index={index} onClick={cardClickHandler} {...card} />
     ));
-    return ok;
-  }, [BOARD]);
+    return boardMap;
+  }, [BOARD, cardClickHandler]);
+
+  // When the game has ended
+  if (isGameFinished) {
+    const endSound = document.querySelector("#audio-endGame");
+    setTimeout(() => endSound.play(), 600);
+  }
 
   return (
     <>
       {console.log("Play.jsx rendered!")}
-      {<h2>{<Timer isGameFinished={isGameFinished()} />}</h2>}
-      <div className="board">
-        {
-          /* BOARD.map((card, index) => (
-          <Card index={index} onClick={cardClickHandler} {...card} />
-        )) */
-          MemoizedBoard
-        }
+
+      <div className="game-header">
+        <div>
+          &#x0221E; &nbsp;
+          {<Timer isGameFinished={isGameFinished} />}
+        </div>
+        <div>{SCORE} &#x02606;</div>
       </div>
-      <h1>{SCORE}</h1>
+
+      <div className="board">{MemoizedBoard}</div>
     </>
   );
 };

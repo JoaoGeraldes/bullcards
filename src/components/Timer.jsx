@@ -11,10 +11,10 @@ const Timer = ({ isGameFinished }) => {
       dispatch({ type: "SET_TIMER", payload: counter });
       return;
     }
-    console.log("BEFORE TIMEOUT");
+    /* console.log("BEFORE TIMEOUT"); */
     const t = setTimeout(() => setCounter(counter + 1), 1000);
     return () => clearTimeout(t);
-  }, [counter, TIMER]);
+  }, [counter]);
 
   return counter;
 };
