@@ -26,6 +26,13 @@ a:visited {
   color: white;
 }
 
+hr {
+  border: 0;
+  height: 1px;
+  width: 100%;
+  background-image: linear-gradient(to right, #1e1f26, #4f505e, #1e1f26);
+}
+
 .container {
   display: flex;
   justify-content: center;
@@ -64,6 +71,25 @@ a:visited {
   box-shadow: 2px 2px 4px 0px #000000;
 }
 
+.game-header {
+  display: flex;
+  width: 80%;
+  justify-content: space-between;
+}
+
+.gameOverModal {
+  z-index: 50;
+  background: #1e1f26;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  opacity: 0.98;
+}
+
 /* --------------------------------- */
 /* ------------- menu ------------- */
 /* --------------------------------- */
@@ -78,17 +104,17 @@ a:visited {
   justify-content: center;
   flex-direction: column;
 }
-.menu a {
+a {
   color: #dbdbdb;
 }
-.menu a:hover {
-  color: white;
-  text-shadow: 4px 4px 4px #000000;
+a:hover {
+  color: #40b3ff;
+  text-shadow: 2px 2px 2px #000000;
 }
 
-/* --------------------------------- */
-/* ------------- table ------------- */
-/* --------------------------------- */
+/* ----------------------------------------- */
+/* ------------- HTML elements ------------- */
+/* ----------------------------------------- */
 table {
   border: none;
   background: #2b2b33;
@@ -148,12 +174,6 @@ button {
 }
 button:hover {
   background: #5974a1;
-}
-
-.game-header {
-  display: flex;
-  width: 80%;
-  justify-content: space-between;
 }
 
 /* EFFECT */

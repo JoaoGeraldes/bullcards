@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useMemo, useRef, useState } from "react";
+/* import { useMemo, useRef, useState } from "react"; */
+import { playSound } from "../helpers/audio";
 
 const Menu = () => {
   const dispatch = useDispatch();
@@ -8,19 +9,14 @@ const Menu = () => {
 
   const toggleMenu = () => dispatch({ type: "TOGGLE_MENU" });
 
+  playSound("#audio-switch");
   /* Mute all the HTML audio elements */
   const toggleMute = (isAudioMuted) => {
-    playSound();
+    playSound("#audio-switch");
     document.querySelectorAll("audio").forEach((audio) => {
       audio.muted = !isAudioMuted;
     });
     dispatch({ type: "TOGGLE_AUDIO" });
-  };
-
-  const playSound = () => {
-    const overSound = document.querySelector("#audio-switch");
-    overSound.currentTime = 0;
-    overSound.play();
   };
 
   // Inline styles
@@ -35,17 +31,29 @@ const Menu = () => {
 
   return (
     <div className="menu fade-in">
-      <h1 onClick={toggleMenu} style={{ color: "grey", cursor: "pointer" }}>
+      <h1
+        onMouseOver={() => playSound("#audio-switch")}
+        onClick={toggleMenu}
+        style={{ color: "grey", cursor: "pointer" }}
+      >
         &#x021A4; close
       </h1>
 
       <h3>
-        <Link onMouseOver={playSound} onClick={toggleMenu} to="/start">
+        <Link
+          onMouseOver={() => playSound("#audio-switch")}
+          onClick={toggleMenu}
+          to="/start"
+        >
           New game
         </Link>
       </h3>
       <h3>
-        <Link onMouseOver={playSound} onClick={toggleMenu} to="/score">
+        <Link
+          onMouseOver={() => playSound("#audio-switch")}
+          onClick={toggleMenu}
+          to="/score"
+        >
           Scoreboard
         </Link>
       </h3>

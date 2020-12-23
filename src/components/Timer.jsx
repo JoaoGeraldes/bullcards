@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const Timer = ({ isGameFinished }) => {
   const dispatch = useDispatch();
-  const TIMER = useSelector((state) => state.timer);
+  /* const TIMER = useSelector((state) => state.timer); */
   const [counter, setCounter] = useState(0);
 
   useEffect(() => {
@@ -14,7 +14,7 @@ const Timer = ({ isGameFinished }) => {
     /* console.log("BEFORE TIMEOUT"); */
     const t = setTimeout(() => setCounter(counter + 1), 1000);
     return () => clearTimeout(t);
-  }, [counter]);
+  }, [counter, isGameFinished, dispatch]);
 
   return counter;
 };

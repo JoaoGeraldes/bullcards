@@ -3,30 +3,48 @@ import Start from "./components/Start";
 import Play from "./components/Play";
 import Score from "./components/Score";
 
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Menu from "./components/Menu";
 import { useDispatch, useSelector } from "react-redux";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
+import GameOverModal from "./components/GameOverModal";
+
+import { cacheImages } from "./helpers/cache";
 
 function App() {
-  const state = useSelector((state) => state);
+  const STATE = useSelector((state) => state);
   const dispatch = useDispatch();
+
+  const [isLoading, setLoading] = useState(true);
+
+  const arraySources = ["./assets/deck/back/back.svg"];
+
+  useEffect(() => {
+    cacheImages(arraySources).then(() => {
+      console.log("LOADED!!!!!!!!!!! 🧡");
+      setLoading(false);
+    });
+  }, []);
 
   /* ----------------------------- */
   /* ---- MEMOIZED COMPONENTS ---- */
   /* ----------------------------- */
+  /* If not memoized, Score component will render everytime we open/close the menu. This behavior is unwanted */
   const ScoreMemoized = useMemo(() => {
     return <Score />;
-  }, [state.scoreboard]);
+  }, []);
 
+  /* If not memoized, Play component will render everytime we open/close the menu. This behavior is unwanted */
   const PlayMemoized = useMemo(() => {
     return <Play />;
-  }, [state.board]);
+  }, []);
 
   return (
     <Router>
+      {isLoading && <h1>Loading</h1>}
       <div className="container">
-        {state.isMenuOpen && <Menu />}
+        {STATE.isMenuOpen && <Menu />}
+        {STATE.isGameOver && <GameOverModal />}
         <h2
           style={{ cursor: "pointer" }}
           onClick={() => dispatch({ type: "TOGGLE_MENU" })}

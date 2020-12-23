@@ -7,15 +7,13 @@ const defaultState = {
   score: 1000,
   isMenuOpen: false,
   isAudioMuted: true,
+  isGameOver: false,
   scoreboard: [
-    { username: "Perro", score: 3000 },
-    { username: "Perrodwdw", score: 239833 },
-    { username: "Perrodwdw", score: 239833 },
-    { username: "Perrodwdw", score: 239833 },
-    { username: "Perrodwdw", score: 239833 },
-    { username: "Perrodwdw", score: 239833 },
-    { username: "Perrodwdw", score: 239833 },
-    { username: "último", score: 239833 },
+    { username: "Dummy", score: 20000 },
+    { username: "Funny", score: 20000 },
+    { username: "Sunny", score: 18000 },
+    { username: "Muddy", score: 22000 },
+    { username: "Punny", score: 17000 },
   ],
   board: [],
 };
@@ -26,10 +24,4 @@ export const store = createStore(
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
-/* store.dispatch({
-  type: "type",
-  payload: "payload",
-});
- */
-
-console.log(store.getState());
+/* console.log(store.getState()); */

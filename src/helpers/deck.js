@@ -37,11 +37,7 @@ export function getRandomCardsFromDeck(
 
   let randomCardIndex = Math.ceil(Math.random() * deck.length - 1);
   if (randomCardIndex === -0) randomCardIndex = 0;
-
-  console.log(selectedCardsIndex);
-
   if (cardsLeft < 1) {
-    console.log(selectedCards);
     return selectedCards;
   }
 

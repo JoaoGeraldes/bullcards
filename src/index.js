@@ -8,6 +8,9 @@ import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
 
+/* This simulates a click on the dom - to avoid error of playing <audio> elements */
+document.body.click();
+
 ReactDOM.render(
   <Provider store={store}>
     <App />

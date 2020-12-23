@@ -9,7 +9,7 @@ const Score = () => {
 
   useEffect(() => {
     dispatch({ type: "RESET" });
-  }, []);
+  }, [dispatch]);
 
   const SCOREBOARD_CLONE = [...SCOREBOARD];
 

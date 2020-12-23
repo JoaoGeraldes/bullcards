@@ -1,7 +1,7 @@
 import * as Deck from "../assets/deck/index";
 import NonFlippedCard from "../assets/deck/back/back.svg";
-import { useEffect, useMemo } from "react";
-import { useSelector } from "react-redux";
+/* import { useEffect, useMemo } from "react";
+import { useSelector } from "react-redux"; */
 
 const Card = ({ match, id, card, isFlipped, onClick: flipCard }) => {
   /*   const flipCard = useMemo(
@@ -27,7 +27,7 @@ const Card = ({ match, id, card, isFlipped, onClick: flipCard }) => {
 
   return (
     <div className={`card-container`}>
-      {console.log("Card.jsx renderd!")}
+      {/* console.log("Card.jsx renderd!") */}
       <img
         onClick={() => !hasMatch && clickHandler()}
         className={`card ${flipEffect}`}
