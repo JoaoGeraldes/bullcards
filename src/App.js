@@ -9,9 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useMemo, useState } from "react";
 import GameOverModal from "./components/GameOverModal";
 
-import { cacheImages, arrayOfSources, fileNames } from "./helpers/cache";
-
-import DECK from "./assets/deck/index";
+import { fileNames } from "./helpers/cache";
 
 function App() {
   const STATE = useSelector((state) => state);
@@ -61,7 +59,7 @@ function App() {
   return (
     <Router>
       <div className="container">
-        {isLoading && <div className="gameOverModal heartbeat">Loading</div>}
+        {isLoading && <h1 className="gameOverModal heartbeat">Loading</h1>}
         {STATE.isMenuOpen && <Menu />}
         {STATE.isGameOver && <GameOverModal />}
         <h2
