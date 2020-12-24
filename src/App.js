@@ -9,19 +9,38 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useMemo, useState } from "react";
 import GameOverModal from "./components/GameOverModal";
 
-import { cacheImages } from "./helpers/cache";
+import { cacheImages, arrayOfSources, fileNames } from "./helpers/cache";
+
+import DECK from "./assets/deck/index";
 
 function App() {
   const STATE = useSelector((state) => state);
   const dispatch = useDispatch();
-
   const [isLoading, setLoading] = useState(true);
 
-  const arraySources = ["./assets/deck/back/back.svg"];
-
   useEffect(() => {
-    cacheImages(arraySources).then(() => {
-      console.log("LOADED!!!!!!!!!!! 🧡");
+    // FETCH ALL SVGS AND STORE THEM IN A GLOBAL OBJECT
+    async function getAllSVGStrings() {
+      window.DECK = { front: null, back: null };
+
+      // GET the back of a card
+      const fetchBackCardSVG = await fetch("/deck/back/back.svg");
+      const stringSVGBack = await fetchBackCardSVG.text();
+      window.DECK.back = stringSVGBack; // Set the back to DECK global object
+
+      // GET all face of cards
+      const frontDeckSVGs = fileNames.map(async (filename) => {
+        const fetchSVG = await fetch("/deck/front/" + filename);
+        const stringSVG = await fetchSVG.text();
+        return stringSVG;
+      });
+
+      const allPromises = Promise.all(frontDeckSVGs);
+      return allPromises;
+    }
+
+    getAllSVGStrings().then((response) => {
+      window.DECK.front = response;
       setLoading(false);
     });
   }, []);
@@ -41,8 +60,8 @@ function App() {
 
   return (
     <Router>
-      {isLoading && <h1>Loading</h1>}
       <div className="container">
+        {isLoading && <div className="gameOverModal heartbeat">Loading</div>}
         {STATE.isMenuOpen && <Menu />}
         {STATE.isGameOver && <GameOverModal />}
         <h2

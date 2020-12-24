@@ -52,7 +52,8 @@ export function getRandomCardsFromDeck(
     selectedCardsIndex
   );
 
-  return selectedCards;
+  //return selectedCards;
+  return selectedCardsIndex;
 }
 
 export function shuffleCards(cards) {

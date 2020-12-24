@@ -1,4 +1,4 @@
-const fileNames = [
+export const fileNames = [
   "1c.svg",
   "1d.svg",
   "1h.svg",
@@ -53,20 +53,72 @@ const fileNames = [
   "13s.svg",
 ];
 
-function generateListOfSources(path, quantity) {}
+export const arrayOfSources = [
+  "/static/media/1c.svg",
+  "/static/media/1d.svg",
+  "/static/media/1h.svg",
+  "/static/media/1s.svg",
+  "/static/media/2c.svg",
+  "/static/media/2d.svg",
+  "/static/media/2h.svg",
+  "/static/media/2s.svg",
+  "/static/media/3c.svg",
+  "/static/media/3d.svg",
+  "/static/media/3h.svg",
+  "/static/media/3s.svg",
+  "/static/media/4c.svg",
+  "/static/media/4d.svg",
+  "/static/media/4h.svg",
+  "/static/media/4s.svg",
+  "/static/media/5c.svg",
+  "/static/media/5d.svg",
+  "/static/media/5h.svg",
+  "/static/media/5s.svg",
+  "/static/media/6c.svg",
+  "/static/media/6d.svg",
+  "/static/media/6h.svg",
+  "/static/media/6s.svg",
+  "/static/media/7c.svg",
+  "/static/media/7d.svg",
+  "/static/media/7h.svg",
+  "/static/media/7s.svg",
+  "/static/media/8c.svg",
+  "/static/media/8d.svg",
+  "/static/media/8h.svg",
+  "/static/media/8s.svg",
+  "/static/media/9c.svg",
+  "/static/media/9d.svg",
+  "/static/media/9h.svg",
+  "/static/media/9s.svg",
+  "/static/media/10c.svg",
+  "/static/media/10d.svg",
+  "/static/media/10h.svg",
+  "/static/media/10s.svg",
+  "/static/media/11c.svg",
+  "/static/media/11d.svg",
+  "/static/media/11h.svg",
+  "/static/media/11s.svg",
+  "/static/media/12c.svg",
+  "/static/media/12d.svg",
+  "/static/media/12h.svg",
+  "/static/media/12s.svg",
+  "/static/media/13c.svg",
+  "/static/media/13d.svg",
+  "/static/media/13h.svg",
+  "/static/media/13s.svg",
+];
 
 export async function cacheImages(arrayOfImageSources) {
   const promises = await arrayOfImageSources.map((src) => {
-    return new Promise((resolve, reject) => {
+    /*     return new Promise((resolve, reject) => {
       const img = new Image();
       img.src = src;
       img.onload = resolve();
       img.onerror = reject();
-    });
+    }); */
+    return fetch(src);
   });
 
   // Wait for all promises to get done
   return await Promise.all(promises);
 }
-
-function cacheAudio() {}

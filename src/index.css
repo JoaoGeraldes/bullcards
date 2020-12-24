@@ -52,21 +52,22 @@ hr {
 }
 
 .card-container {
-  /* width: 80px; */
-  /* height: 120px; */
   display: flex;
   align-items: center;
   justify-content: center;
-  /* border: 1px solid blue; */
   flex-basis: 21%;
+  width: 200px;
 }
 
 .card {
   /* perspective: 1000px; */
-  width: 70px !important;
-  height: 100 !important;
   cursor: pointer;
   margin: 2px;
+}
+.card svg {
+  width: 70px !important;
+  height: 100px !important;
+  position: relative;
   -webkit-box-shadow: 3px 3px 5px 0px #000000;
   box-shadow: 2px 2px 4px 0px #000000;
 }
@@ -75,6 +76,7 @@ hr {
   display: flex;
   width: 80%;
   justify-content: space-between;
+  margin-bottom: 30px;
 }
 
 .gameOverModal {
@@ -195,6 +197,11 @@ button:hover {
   animation: fade-in 0.15s linear both;
 }
 
+.heartbeat {
+  -webkit-animation: heartbeat 1.5s linear infinite both;
+  animation: heartbeat 1.5s linear infinite both;
+}
+
 /**
  * ----------------------------------------
  * animation flip-vertical-right
@@ -275,5 +282,79 @@ button:hover {
   }
   100% {
     opacity: 1;
+  }
+}
+
+/**
+ * ----------------------------------------
+ * animation heartbeat
+ * ----------------------------------------
+ */
+@-webkit-keyframes heartbeat {
+  from {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    -webkit-transform-origin: center center;
+    transform-origin: center center;
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+  }
+  10% {
+    -webkit-transform: scale(0.91);
+    transform: scale(0.91);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+  }
+  17% {
+    -webkit-transform: scale(0.98);
+    transform: scale(0.98);
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+  }
+  33% {
+    -webkit-transform: scale(0.87);
+    transform: scale(0.87);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+  }
+  45% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+  }
+}
+@keyframes heartbeat {
+  from {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    -webkit-transform-origin: center center;
+    transform-origin: center center;
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+  }
+  10% {
+    -webkit-transform: scale(0.91);
+    transform: scale(0.91);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+  }
+  17% {
+    -webkit-transform: scale(0.98);
+    transform: scale(0.98);
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+  }
+  33% {
+    -webkit-transform: scale(0.87);
+    transform: scale(0.87);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+  }
+  45% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
   }
 }

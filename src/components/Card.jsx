@@ -1,5 +1,5 @@
-import * as Deck from "../assets/deck/index";
-import NonFlippedCard from "../assets/deck/back/back.svg";
+/* import * as Deck from "../assets/deck/index";
+import NonFlippedCard from "../assets/deck/back/back.svg"; */
 /* import { useEffect, useMemo } from "react";
 import { useSelector } from "react-redux"; */
 
@@ -25,15 +25,27 @@ const Card = ({ match, id, card, isFlipped, onClick: flipCard }) => {
     });
   };
 
+  function ParsedCard() {
+    const displayCard = isFlipped ? window.DECK.front[card] : window.DECK.back;
+    const SVGstring = { __html: displayCard };
+    return (
+      <div
+        dangerouslySetInnerHTML={SVGstring}
+        onClick={() => !hasMatch && clickHandler()}
+        className={`card `}
+      ></div>
+    );
+  }
+
   return (
-    <div className={`card-container`}>
-      {/* console.log("Card.jsx renderd!") */}
-      <img
+    <div className={`card-container ${flipEffect}`}>
+      <ParsedCard />
+      {/*  <img
         onClick={() => !hasMatch && clickHandler()}
         className={`card ${flipEffect}`}
         src={isFlipped ? Deck[card] : NonFlippedCard}
         alt="some Alt"
-      />
+      /> */}
     </div>
   );
 };
