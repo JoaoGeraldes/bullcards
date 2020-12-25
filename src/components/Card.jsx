@@ -41,15 +41,16 @@ const Card = ({ match, id, card, isFlipped, onClick: flipCard }) => {
       ></div>
     );
   }
-  const useCallbackzz = useMemo(() => ParsedCard(), [
+  const ParseCardMemoized = useMemo(() => ParsedCard(), [
     isFlipped,
     isActionBlocked,
+    match,
   ]);
 
   return (
     <div className={`card-container ${flipEffect}`}>
       {console.log("Rendered Card.jsx")}
-      {useCallbackzz}
+      {ParseCardMemoized}
       {/* 
         <img
           onClick={() => !hasMatch && clickHandler()}

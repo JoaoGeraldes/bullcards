@@ -10,7 +10,7 @@ import { playSound } from "../helpers/audio";
 /* GAME SETTINGS */
 const settings = {
   cardFlipDelay: 1000,
-  cardPairQuantity: 12,
+  cardPairQuantity: 8,
   shuffleDeck: false,
 };
 
