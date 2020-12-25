@@ -33,12 +33,25 @@ export function getRandomCardsFromDeck(
   selectedCards = [],
   selectedCardsIndex = []
 ) {
-  deck = !deck ? deckBuilder() : deck;
-
-  let randomCardIndex = Math.ceil(Math.random() * deck.length - 1);
-  if (randomCardIndex === -0) randomCardIndex = 0;
   if (cardsLeft < 1) {
     return selectedCards;
+  }
+
+  function buildDeck() {
+    let deck = [];
+    for (let i = 0; i <= 51; i++) {
+      deck.push(i);
+    }
+    return deck;
+  }
+
+  /* deck = !deck ? deckBuilder() : deck; */
+  deck = !deck ? buildDeck() : deck;
+
+  let randomCardIndex = Math.ceil(Math.random() * deck.length - 1);
+
+  if (randomCardIndex === -0) {
+    randomCardIndex = 0;
   }
 
   selectedCards.push(deck[randomCardIndex]);
@@ -53,7 +66,7 @@ export function getRandomCardsFromDeck(
   );
 
   //return selectedCards;
-  return selectedCardsIndex;
+  return selectedCards;
 }
 
 export function shuffleCards(cards) {

@@ -15,7 +15,7 @@ import { playSound } from "../helpers/audio";
 /* GAME SETTINGS */
 const settings = {
   cardFlipDelay: 1000,
-  cardPairQuantity: 8,
+  cardPairQuantity: 14,
   shuffleDeck: false,
 };
 
@@ -35,6 +35,8 @@ const Play = () => {
     const randomKey = () => Date.now() + Math.round(Math.random() * 10000000);
     const playingCards = getRandomCardsFromDeck(settings.cardPairQuantity);
 
+    console.log(playingCards);
+
     playSound("#audio-ting");
 
     let cardCollection = [];
@@ -49,14 +51,14 @@ const Play = () => {
           key: randomKey(),
           id: randomKey(),
           card: oneCard,
-          isFlipped: false,
+          isFlipped: true,
           match: null,
         },
         {
           key: randomKey(),
           id: randomKey(),
           card: oneCard,
-          isFlipped: false,
+          isFlipped: true,
           match: null,
         }
       );
