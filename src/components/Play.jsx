@@ -23,7 +23,7 @@ const Play = () => {
   const settings = {
     cardFlipDelay: 1000,
     cardQuantity: CARD_QUANTITY / 2,
-    shuffleDeck: false,
+    shuffleDeck: true,
   };
 
   useEffect(() => {
