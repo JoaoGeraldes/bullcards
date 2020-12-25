@@ -75,3 +75,21 @@ export function shuffleCards(cards) {
 
   return cards;
 }
+
+// If the deck is not loaded should redirect client to the main page
+export function isDeckLoaded() {
+  const DECK = window.DECK || null;
+  if (DECK) {
+    if (!DECK.front || !DECK.back) {
+      return false;
+    } else {
+      return true;
+    }
+  } else {
+    return false;
+  }
+}
+
+export function redirectUserToMainPage() {
+  window.location.href = "/";
+}

@@ -1,7 +1,12 @@
 import Card from "./Card";
 import { useCallback, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getRandomCardsFromDeck, shuffleCards } from "../helpers/deck";
+import {
+  getRandomCardsFromDeck,
+  shuffleCards,
+  isDeckLoaded,
+  redirectUserToMainPage,
+} from "../helpers/deck";
 import Timer from "./Timer";
 import { Redirect, Link } from "react-router-dom";
 /* import { Link, Redirect } from "react-router-dom"; */
@@ -23,6 +28,10 @@ const Play = () => {
   const TIMER = useSelector((state) => state.timer); */
 
   useEffect(() => {
+    if (!isDeckLoaded()) {
+      redirectUserToMainPage();
+    }
+
     const randomKey = () => Date.now() + Math.round(Math.random() * 10000000);
     const playingCards = getRandomCardsFromDeck(settings.cardPairQuantity);
 
