@@ -3,8 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 const Score = () => {
   const dispatch = useDispatch();
-  //const SCORE = useSelector((state) => state.score);
-  //const TIMER = useSelector((state) => state.timer);
   const SCOREBOARD = useSelector((state) => state.scoreboard);
 
   useEffect(() => {
@@ -15,7 +13,6 @@ const Score = () => {
 
   return (
     <div style={{ height: "90%" }}>
-      {console.log("Score.jsx rendered!")}
       <table>
         <thead>
           <tr>
