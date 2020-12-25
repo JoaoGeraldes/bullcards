@@ -56,7 +56,9 @@ hr {
   align-items: center;
   justify-content: center;
   flex-basis: 21%;
-  width: 200px;
+  width: 70px !important;
+  height: 100px !important;
+  margin: 2px;
 }
 
 .card {
@@ -148,7 +150,8 @@ tbody tr:hover {
   cursor: pointer;
 }
 
-input {
+input,
+select {
   font-family: "Russo One", sans-serif;
   height: 40px;
   width: 200px;

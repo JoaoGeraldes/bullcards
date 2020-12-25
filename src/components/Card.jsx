@@ -3,18 +3,12 @@ import NonFlippedCard from "../assets/deck/back/back.svg"; */
 /* import { useEffect, useMemo } from "react";
 import { useSelector } from "react-redux"; */
 
-import { useCallback, useMemo } from "react";
+import { useMemo } from "react";
 
 const Card = ({ match, id, card, isFlipped, onClick: flipCard }) => {
-  /*   const flipCard = useMemo(
-    () => onClick(),
-    [isFlipped]
-  ); */
   const hasMatch = match !== null;
   const flipEffect = isFlipped ? "flip-vertical-right" : "flip-vertical-left";
   const isActionBlocked = flipCard === null;
-
-  /*   const clickHandle = useCallback(() => clickHandler(), []); */
 
   const clickHandler = () => {
     if (isActionBlocked) {
@@ -41,6 +35,7 @@ const Card = ({ match, id, card, isFlipped, onClick: flipCard }) => {
       ></div>
     );
   }
+
   const ParseCardMemoized = useMemo(() => ParsedCard(), [
     isFlipped,
     isActionBlocked,
@@ -49,7 +44,6 @@ const Card = ({ match, id, card, isFlipped, onClick: flipCard }) => {
 
   return (
     <div className={`card-container ${flipEffect}`}>
-      {console.log("Rendered Card.jsx")}
       {ParseCardMemoized}
       {/* 
         <img

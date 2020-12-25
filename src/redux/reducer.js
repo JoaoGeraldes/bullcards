@@ -3,7 +3,11 @@ export function reducer(state = [], action) {
 
   switch (action.type) {
     case "SET_USERNAME":
-      return { ...state, username: action.payload };
+      return {
+        ...state,
+        username: action.payload[0],
+        cardQuantity: action.payload[1],
+      };
     case "SET_TIMER":
       //const time = action.payload !== undefined ? action.payload : state.timer;
       stateClone.timer = action.payload;
@@ -21,6 +25,7 @@ export function reducer(state = [], action) {
         isMenuOpen: false,
         isAudioMuted: state.isAudioMuted,
         isGameOver: false,
+        cardQuantity: state.cardQuantity,
         scoreboard:
           state.timer === 0
             ? [...state.scoreboard]

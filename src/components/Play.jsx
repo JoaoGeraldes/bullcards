@@ -8,24 +8,23 @@ import {
   redirectUserToMainPage,
 } from "../helpers/deck";
 import Timer from "./Timer";
-import { Redirect, Link } from "react-router-dom";
+/* import { Redirect, Link } from "react-router-dom"; */
 /* import { Link, Redirect } from "react-router-dom"; */
 import { playSound } from "../helpers/audio";
-
-/* GAME SETTINGS */
-const settings = {
-  cardFlipDelay: 1000,
-  cardPairQuantity: 14,
-  shuffleDeck: false,
-};
 
 const Play = () => {
   const dispatch = useDispatch();
   const BOARD = useSelector((state) => state.board);
   const SCORE = useSelector((state) => state.score);
   const IS_GAMEOVER = useSelector((state) => state.isGameOver);
-  /*   const SCOREBOARD = useSelector((state) => state.scoreboard);
-  const TIMER = useSelector((state) => state.timer); */
+  const CARD_QUANTITY = useSelector((state) => state.cardQuantity);
+
+  /* GAME SETTINGS */
+  const settings = {
+    cardFlipDelay: 1000,
+    cardQuantity: CARD_QUANTITY / 2,
+    shuffleDeck: false,
+  };
 
   useEffect(() => {
     if (!isDeckLoaded()) {
@@ -33,9 +32,7 @@ const Play = () => {
     }
 
     const randomKey = () => Date.now() + Math.round(Math.random() * 10000000);
-    const playingCards = getRandomCardsFromDeck(settings.cardPairQuantity);
-
-    console.log(playingCards);
+    const playingCards = getRandomCardsFromDeck(settings.cardQuantity);
 
     playSound("#audio-ting");
 
@@ -51,14 +48,14 @@ const Play = () => {
           key: randomKey(),
           id: randomKey(),
           card: oneCard,
-          isFlipped: true,
+          isFlipped: false,
           match: null,
         },
         {
           key: randomKey(),
           id: randomKey(),
           card: oneCard,
-          isFlipped: true,
+          isFlipped: false,
           match: null,
         }
       );
@@ -88,7 +85,7 @@ const Play = () => {
   );
 
   const areAllCardsFlippedAndMatched =
-    currentMatchedFlippedCards === settings.cardPairQuantity * 2;
+    currentMatchedFlippedCards === settings.cardQuantity * 2;
 
   /* --------------------- */
   /* ---- dispatchers ---- */

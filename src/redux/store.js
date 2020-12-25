@@ -8,6 +8,7 @@ const defaultState = {
   isMenuOpen: false,
   isAudioMuted: true,
   isGameOver: false,
+  cardQuantity: 8,
   scoreboard: [
     { username: "Dummy", score: 20000 },
     { username: "Funny", score: 20000 },
