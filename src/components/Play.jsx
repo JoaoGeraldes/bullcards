@@ -10,8 +10,8 @@ import { playSound } from "../helpers/audio";
 /* GAME SETTINGS */
 const settings = {
   cardFlipDelay: 1000,
-  cardPairQuantity: 2,
-  shuffleDeck: true,
+  cardPairQuantity: 12,
+  shuffleDeck: false,
 };
 
 const Play = () => {
@@ -144,13 +144,21 @@ const Play = () => {
     }
   }
 
+  const memoCard = useCallback(
+    (index, props, callback) => (
+      <Card index={index} onClick={callback} {...props} />
+    ),
+    [cardClickHandler]
+  );
+
   // Avoiding unnecessary rendering of cards - render only when the redux BOARD changes - memoization
   const MemoizedBoard = useMemo(() => {
-    const boardMap = BOARD.map((card, index) => (
-      <Card index={index} onClick={cardClickHandler} {...card} />
-    ));
+    const boardMap = BOARD.map((card, index) =>
+      /* <Card index={index} onClick={cardClickHandler} {...card} /> */
+      memoCard(index, { ...card }, cardClickHandler)
+    );
     return boardMap;
-  }, [BOARD, cardClickHandler]);
+  }, [BOARD]);
 
   function gameOverVerifier() {
     if (areAllCardsFlippedAndMatched) {

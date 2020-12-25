@@ -17,7 +17,7 @@ function App() {
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
-    // FETCH ALL SVGS AND STORE THEM IN A GLOBAL OBJECT
+    // FETCH ALL SVGS (Playing Cards) AND STORE THEM IN A GLOBAL OBJECT
     async function getAllSVGStrings() {
       window.DECK = { front: null, back: null };
 
@@ -26,7 +26,7 @@ function App() {
       const stringSVGBack = await fetchBackCardSVG.text();
       window.DECK.back = stringSVGBack; // Set the back to DECK global object
 
-      // GET all face of cards
+      // GET all face (front) of cards
       const frontDeckSVGs = fileNames.map(async (filename) => {
         const fetchSVG = await fetch("/deck/front/" + filename);
         const stringSVG = await fetchSVG.text();
@@ -37,6 +37,7 @@ function App() {
       return allPromises;
     }
 
+    /* When the cards are loaded and stored in a global object hides Loading */
     getAllSVGStrings().then((response) => {
       window.DECK.front = response;
       setLoading(false);

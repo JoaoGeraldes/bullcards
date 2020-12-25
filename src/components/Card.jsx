@@ -3,6 +3,8 @@ import NonFlippedCard from "../assets/deck/back/back.svg"; */
 /* import { useEffect, useMemo } from "react";
 import { useSelector } from "react-redux"; */
 
+import { useCallback, useMemo } from "react";
+
 const Card = ({ match, id, card, isFlipped, onClick: flipCard }) => {
   /*   const flipCard = useMemo(
     () => onClick(),
@@ -11,6 +13,8 @@ const Card = ({ match, id, card, isFlipped, onClick: flipCard }) => {
   const hasMatch = match !== null;
   const flipEffect = isFlipped ? "flip-vertical-right" : "flip-vertical-left";
   const isActionBlocked = flipCard === null;
+
+  /*   const clickHandle = useCallback(() => clickHandler(), []); */
 
   const clickHandler = () => {
     if (isActionBlocked) {
@@ -31,21 +35,29 @@ const Card = ({ match, id, card, isFlipped, onClick: flipCard }) => {
     return (
       <div
         dangerouslySetInnerHTML={SVGstring}
+        /* onClick={() => !hasMatch && clickHandler()} */
         onClick={() => !hasMatch && clickHandler()}
         className={`card `}
       ></div>
     );
   }
+  const useCallbackzz = useMemo(() => ParsedCard(), [
+    isFlipped,
+    isActionBlocked,
+  ]);
 
   return (
     <div className={`card-container ${flipEffect}`}>
-      <ParsedCard />
-      {/*  <img
-        onClick={() => !hasMatch && clickHandler()}
-        className={`card ${flipEffect}`}
-        src={isFlipped ? Deck[card] : NonFlippedCard}
-        alt="some Alt"
-      /> */}
+      {console.log("Rendered Card.jsx")}
+      {useCallbackzz}
+      {/* 
+        <img
+          onClick={() => !hasMatch && clickHandler()}
+          className={`card ${flipEffect}`}
+          src={isFlipped ? Deck[card] : NonFlippedCard}
+          alt="some Alt"
+        />
+       */}
     </div>
   );
 };
