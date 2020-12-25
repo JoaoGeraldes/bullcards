@@ -1,4 +1,3 @@
-import "./App.css";
 import Start from "./components/Start";
 import Play from "./components/Play";
 import Score from "./components/Score";
