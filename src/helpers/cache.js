@@ -107,18 +107,3 @@ export const arrayOfSources = [
   "/static/media/13h.svg",
   "/static/media/13s.svg",
 ];
-
-/* export async function cacheImages(arrayOfImageSources) {
-  const promises = await arrayOfImageSources.map((src) => {
-    return new Promise((resolve, reject) => {
-      const img = new Image();
-      img.src = src;
-      img.onload = resolve();
-      img.onerror = reject();
-    });
-    return fetch(src);
-  });
-
-  // Wait for all promises to get done
-  return await Promise.all(promises);
-} */

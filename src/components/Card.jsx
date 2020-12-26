@@ -1,8 +1,3 @@
-/* import * as Deck from "../assets/deck/index";
-import NonFlippedCard from "../assets/deck/back/back.svg"; */
-/* import { useEffect, useMemo } from "react";
-import { useSelector } from "react-redux"; */
-
 import { useMemo } from "react";
 
 const Card = ({ match, id, card, isFlipped, onClick: flipCard }) => {
@@ -29,7 +24,6 @@ const Card = ({ match, id, card, isFlipped, onClick: flipCard }) => {
     return (
       <div
         dangerouslySetInnerHTML={SVGstring}
-        /* onClick={() => !hasMatch && clickHandler()} */
         onClick={() => !hasMatch && clickHandler()}
         className={`card `}
       ></div>
@@ -43,17 +37,7 @@ const Card = ({ match, id, card, isFlipped, onClick: flipCard }) => {
   ]);
 
   return (
-    <div className={`card-container ${flipEffect}`}>
-      {ParseCardMemoized}
-      {/* 
-        <img
-          onClick={() => !hasMatch && clickHandler()}
-          className={`card ${flipEffect}`}
-          src={isFlipped ? Deck[card] : NonFlippedCard}
-          alt="some Alt"
-        />
-       */}
-    </div>
+    <div className={`card-container ${flipEffect}`}>{ParseCardMemoized}</div>
   );
 };
 

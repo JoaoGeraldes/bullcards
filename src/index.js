@@ -1,14 +1,21 @@
+// REACT
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
+
+// APP
 import App from "./App";
-import reportWebVitals from "./reportWebVitals";
+
+// APP STYLE
+import "./index.css";
 
 // REDUX
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
 
-/* This simulates a click on the dom - to avoid error of playing <audio> elements */
+/*--*/
+import reportWebVitals from "./reportWebVitals";
+
+/* This simulates a click on the DOM - to avoid error of playing <audio> elements */
 document.body.click();
 
 ReactDOM.render(

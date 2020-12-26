@@ -1,16 +1,16 @@
-import Card from "./Card";
 import { useCallback, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 import {
   getRandomCardsFromDeck,
   shuffleCards,
   isDeckLoaded,
   redirectUserToMainPage,
 } from "../helpers/deck";
-import Timer from "./Timer";
-/* import { Redirect, Link } from "react-router-dom"; */
-/* import { Link, Redirect } from "react-router-dom"; */
 import { playSound } from "../helpers/audio";
+
+import Timer from "./Timer";
+import Card from "./Card";
 
 const Play = () => {
   const dispatch = useDispatch();

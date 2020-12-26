@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-/* import { useMemo, useRef, useState } from "react"; */
 import { playSound } from "../helpers/audio";
 
 const Menu = () => {
